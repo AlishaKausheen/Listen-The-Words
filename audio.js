@@ -19,7 +19,8 @@ async function setUp() {
       img.drawImage(video, 0, 0, canvas.width, canvas.height); //the image that will be used for reading
       const imageData = img.getImageData(0, 0, canvas.width, canvas.height);
       const {
-        data: { text }, } = await worker.recognize(imageData,'eng');
+        data: { text }, } = await worker.recognize(imageData, 'eng');
+      speechSynthesis.speak(new SpeechSynthesisUtterance(text.replace(/\s/g," ")))
       textElem.textContent = text;
       
     });
