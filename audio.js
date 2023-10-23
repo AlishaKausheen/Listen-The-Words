@@ -1,4 +1,5 @@
 const video = document.querySelector(`video`);
+const textElem = document.querySelector('[data-text]');
 async function setUp() {
   const stream = await navigator.mediaDevices.getUserMedia({ video: true });
   video.srcObject = stream;
@@ -14,12 +15,13 @@ async function setUp() {
     canvas.height = video.height;
     document.addEventListener(`keypress`, async (e) => {
       if (e.code != `Enter`) return;
-      let img = canvas.getContext(`2d`).drawImage(video, 0, 0, video.width, video.height); //the image that will be used for reading
+      const img = canvas.getContext(`2d`)
+      img.drawImage(video, 0, 0, canvas.width, canvas.height); //the image that will be used for reading
+      const imageData = img.getImageData(0, 0, canvas.width, canvas.height);
       const {
-        data: { text },
-      } = await worker.recognize(img,`eng`);
-      console.log(text);
-      await worker.terminate();
+        data: { text }, } = await worker.recognize(imageData,'eng');
+      textElem.textContent = text;
+      
     });
   });
 }
