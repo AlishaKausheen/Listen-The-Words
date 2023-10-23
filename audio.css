@@ -2,4 +2,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: auto;
+  width: 60%;
+  height:40%;
+  border: 5rem;
+  border-color: black;
+  border-radius: 50%;
+}
+body{
+  background-color: rgb(118, 120, 119);
 }
